@@ -5,14 +5,16 @@ void keyPressed() {
   if (keyCode == LEFT) leftKey = true;
   if (keyCode == RIGHT) rightKey = true;
   if (key == ' ') spaceKey = true;
+  if (key == 't' || key == 'T') tKey = true;
 }
 
 void keyReleased() {
   if (keyCode == UP) upKey = false;
   if (keyCode == DOWN) downKey = false;
   if (keyCode == LEFT) leftKey = false;
-  if (keyCode == LEFT) rightKey = false;
+  if (keyCode == RIGHT) rightKey = false;
   if (key == ' ') spaceKey = false;
+  if (key == 't' || key == 'T') tKey = false;
 }
 
 //mouse clicks

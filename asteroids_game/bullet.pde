@@ -1,9 +1,7 @@
 class Bullet extends GameObject {
 
-  //instance variables
   int timer;
 
-  //constructor
   Bullet() {
     timer = 60;
     lives = 1;
@@ -14,7 +12,6 @@ class Bullet extends GameObject {
     size = 5;
   }
 
-  //behaviour functions
   void show() {
     fill(255);
     circle(loc.x, loc.y, size);

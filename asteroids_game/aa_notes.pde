@@ -1,21 +1,19 @@
 /*
-CRITERIA DOCUMENTS LINK: https://docs.google.com/document/d/1vk820pDyH5gs6qJOFwc1rkLp30oz4Dci32beIPJHoqY/edit
+CRITERIA DOCUMENT: https://docs.google.com/document/d/1vk820pDyH5gs6qJOFwc1rkLp30oz4Dci32beIPJHoqY/edit
 
 NOTES:
 - theme is monsters (asteroids) and aliens (UFOs)
 - kind of olive/army green background colour for grass/ground, corresponding colour palette, gif and fonts
  
 PROBLEMS:
-- when rotating clockwise it won't stop
-- the game takes a while to launch with mode framework
+- with the awkward shape of the monster, sometimes it doesn't lose lives properly (for the ship or the asteroids)
+- the size variable has no actual use in the ship function, but i am using it to lose lives
+- win code doesn't work, how should I do it?
+- do i need to write new PVector every time I change the location? cause it doesn't work otherwise
 
 TO DO:
 - The Mode Framework
-  - choose a theme
-  - find + add a gif
-  - find + add fonts
   - make tactile buttons
-  - make intro screen
   - make pause screen
   - make gameover screen
 - The UFO Class
@@ -25,9 +23,7 @@ TO DO:
   - figure out how to aim at ship
   - make it die when shot by ship bullet
 - Ship Collisions
-  - make the player lose lives when hit by an asteroid
   - make the player lose lives when hit by a UFO bullet
-  - change to gameover screen when number of lives reaches 0
   - create cooldown period after ship has been shot before it can be shot at again, represent this visually
 - The Particle Class and Fire Class
   - figure out how to do transparency
@@ -42,7 +38,5 @@ TO DO:
   - reset all properties
   - change screen from GAMEOVER to INTRO
 - Other Tasks
-  - think of extra features?
-  - organize + comment code (wednesday)
-  - add music
+  - comment in code explaining the game (monsters and aliens)
  */

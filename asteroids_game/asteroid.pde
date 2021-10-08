@@ -6,7 +6,7 @@ class Asteroid extends GameObject {
     v = new PVector(0, 1);
     v.rotate(random(0, TWO_PI));
     lives = 1;
-    size = 100;
+    size = 160;
   }
 
   //constructor after hit
@@ -19,9 +19,10 @@ class Asteroid extends GameObject {
   }
 
   void show() {
-    noFill();
-    stroke(255);
-    circle(loc.x, loc.y, size);
+    image(monster, loc.x, loc.y, size, size);
+    //noFill();
+    //stroke(255);
+    //circle(loc.x, loc.y, size);
   }
 
   void act() {
@@ -35,7 +36,7 @@ class Asteroid extends GameObject {
         if (dist (loc.x, loc.y, o.loc.x, o.loc.y) <= (size+o.size)/2) {
           o.lives = 0;
           lives = 0;
-          if (size > 25) {
+          if (size > 40) {
             myObjects.add(new Asteroid(size/2, loc.x, loc.y));
             myObjects.add(new Asteroid(size/2, loc.x, loc.y));
           }
@@ -43,5 +44,6 @@ class Asteroid extends GameObject {
       }
       i++;
     }
+
   }
 }
