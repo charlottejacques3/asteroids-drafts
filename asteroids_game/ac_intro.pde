@@ -1,7 +1,7 @@
 void intro() {
   //background(0);
   //gif
-  image(gif[frame], 0, 0, width, height);
+  image(gif[frame], width/2, height/2, width, height);
   frame++;
   if (frame >= gifLength) frame = 0;
   
@@ -13,7 +13,6 @@ void intro() {
   textFont(rightItalic);
   text("TERS", 740, 350);
   text("IENS", 725, 450);
-  println("hello, this is the intro screen :)");
 }
 
 void introClicks() {

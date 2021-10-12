@@ -1,6 +1,7 @@
 //Charlotte Jacques
-//Asteroids Game
+//Asteroids Game/Monsters and Aliens: monsters are the asteroids and aliens are the UFOs!
 //gif link: https://giphy.com/gifs/alien-bicycle-flying-xT0GqHajFY3GXePWBW
+//
 
 //mode variables
 final int INTRO = 0;
@@ -21,6 +22,10 @@ PImage avatar, monster, alien;
 
 //game variables
 boolean gameWon = false;
+int cooldown = 240;
+
+//teleporting variables
+int teleTimer = 350;
 
 //font variables
 PFont greenFont, rightItalic, leftItalic;
@@ -35,23 +40,25 @@ boolean upKey, downKey, leftKey, rightKey, spaceKey, tKey;
 
 //object variables
 Ship myShip;
-Asteroid[] myAsteroids;
-int numAsteroids = 3;
+Ufo myUfo;
+ArrayList <Asteroid> myAsteroids;
+//ArrayList <Bullet> myBullets;
 ArrayList<GameObject> myObjects;
 
 void setup() {
   size(1200, 800);
-  textAlign(CENTER);
+  textAlign(CENTER, CENTER);
+  imageMode(CENTER);
 
   //image variables
   monster = loadImage("monster.png");
+  alien = loadImage("alien.png");
 
   //font variables
-  greenFont = createFont("Bigpartyo2green-d95XV.ttf", 100);
+  //greenFont = createFont("Bigpartyo2green-d95XV.ttf", 100);
   rightItalic = createFont("BomberEscortItalic-ALG22.otf", 100);
   leftItalic = createFont("BomberEscortLeftalic-ywLl2.otf", 100);
   //textFont(greenFont);
-  textAlign(CENTER, CENTER);
 
   //gif variables
   gif = new PImage[gifLength];
@@ -67,7 +74,9 @@ void setup() {
 
   //object variables
   myShip = new Ship();
-  myAsteroids = new Asteroid[numAsteroids];
+  myUfo = new Ufo();
+  myAsteroids = new ArrayList<Asteroid>();
+  //myBullets = new ArrayList<Bullet>();
   myObjects = new ArrayList<GameObject>();
 
   //add ship to arraylist
@@ -75,11 +84,17 @@ void setup() {
 
   //add asteroids to arraylist
   int i = 0;
-  while (i < numAsteroids) {
-    myAsteroids[i] = new Asteroid();
-    myObjects.add(myAsteroids[i]);
+  while (i < 3) {
+    Asteroid a = new Asteroid();
+    myObjects.add(a);
+    myAsteroids.add(a);
     i++;
   }
+  
+  //add ufo to arraylist
+  myObjects.add(myUfo);
+  
+  
 }
 
 void draw() {

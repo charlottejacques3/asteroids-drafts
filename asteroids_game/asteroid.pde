@@ -20,9 +20,6 @@ class Asteroid extends GameObject {
 
   void show() {
     image(monster, loc.x, loc.y, size, size);
-    //noFill();
-    //stroke(255);
-    //circle(loc.x, loc.y, size);
   }
 
   void act() {
@@ -39,11 +36,15 @@ class Asteroid extends GameObject {
           if (size > 40) {
             myObjects.add(new Asteroid(size/2, loc.x, loc.y));
             myObjects.add(new Asteroid(size/2, loc.x, loc.y));
+            myAsteroids.add(new Asteroid(size/2, loc.x, loc.y));
+            myAsteroids.add(new Asteroid(size/2, loc.x, loc.y));
           }
         }
       }
       i++;
     }
+    
+    
 
   }
 }

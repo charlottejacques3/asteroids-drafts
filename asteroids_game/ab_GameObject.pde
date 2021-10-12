@@ -14,9 +14,9 @@ class GameObject {
     loc.add(v);
     
     //when going off the screen
-    if (loc.y < -50) loc.y = height + 50;
-    if (loc.y > height + 50) loc.y = -50;
-    if (loc.x < -50) loc.x = width + 50;
-    if (loc.x > width + 50) loc.x = -50;
+    if (loc.y < - size/2 - 10) loc.y = height + size/2 + 10;
+    if (loc.y > height + size/2 + 10) loc.y = - size/2 - 10;
+    if (loc.x < - size/2 - 10) loc.x = width + size/2 + 10;
+    if (loc.x > width + size/2 + 10) loc.x = - size/2 - 10;
   }
 }
