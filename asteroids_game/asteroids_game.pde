@@ -1,7 +1,6 @@
 //Charlotte Jacques
 //Asteroids Game/Monsters and Aliens: monsters are the asteroids and aliens are the UFOs!
 //gif link: https://giphy.com/gifs/alien-bicycle-flying-xT0GqHajFY3GXePWBW
-//
 
 //mode variables
 final int INTRO = 0;
@@ -18,14 +17,18 @@ color magenta = #6E2745;
 color brown = #3B2B22;
 
 //image variables
-PImage avatar, monster, alien;
+PImage monster, alien, shield;
 
 //game variables
-boolean gameWon = false;
-int cooldown = 240;
+int numAsteroids = 3;
 
 //teleporting variables
 int teleTimer = 350;
+
+//ufo variables
+int ufoTimer = 0;
+int ufoThreshold = 500; //int(random(500, 2000)) - also set this after the ufo is killed so it is randomized every time
+boolean ufoAlive = false;
 
 //font variables
 PFont greenFont, rightItalic, leftItalic;
@@ -40,10 +43,7 @@ boolean upKey, downKey, leftKey, rightKey, spaceKey, tKey;
 
 //object variables
 Ship myShip;
-Ufo myUfo;
-ArrayList <Asteroid> myAsteroids;
-//ArrayList <Bullet> myBullets;
-ArrayList<GameObject> myObjects;
+ArrayList<GameObject> myObjects; //<>//
 
 void setup() {
   size(1200, 800);
@@ -53,12 +53,11 @@ void setup() {
   //image variables
   monster = loadImage("monster.png");
   alien = loadImage("alien.png");
+  shield = loadImage("shield.png");
 
   //font variables
-  //greenFont = createFont("Bigpartyo2green-d95XV.ttf", 100);
   rightItalic = createFont("BomberEscortItalic-ALG22.otf", 100);
   leftItalic = createFont("BomberEscortLeftalic-ywLl2.otf", 100);
-  //textFont(greenFont);
 
   //gif variables
   gif = new PImage[gifLength];
@@ -74,9 +73,6 @@ void setup() {
 
   //object variables
   myShip = new Ship();
-  myUfo = new Ufo();
-  myAsteroids = new ArrayList<Asteroid>();
-  //myBullets = new ArrayList<Bullet>();
   myObjects = new ArrayList<GameObject>();
 
   //add ship to arraylist
@@ -84,17 +80,10 @@ void setup() {
 
   //add asteroids to arraylist
   int i = 0;
-  while (i < 3) {
-    Asteroid a = new Asteroid();
-    myObjects.add(a);
-    myAsteroids.add(a);
+  while (i < numAsteroids) {
+    myObjects.add(new Asteroid());
     i++;
   }
-  
-  //add ufo to arraylist
-  myObjects.add(myUfo);
-  
-  
 }
 
 void draw() {

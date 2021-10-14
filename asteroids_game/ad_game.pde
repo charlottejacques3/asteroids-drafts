@@ -1,34 +1,21 @@
 void game() {
   background(green);
 
-  //get rid of objects
+  //show objects
   int i = 0;
   while (i < myObjects.size()) {
     GameObject o = myObjects.get(i);
     o.show();
     o.act();
 
+    //remove objects
     if (o.lives == 0) {
       myObjects.remove(i);
       i--;
     }
     i++;
   }
-  
-  //maintain asteroids array
-    int r = 0;
-    while (r < myAsteroids.size()) {
-      Asteroid a = myAsteroids.get(r);
-      
-      a.loc.add(a.v);
-    //when going off the screen
-    if (a.loc.y < - a.size/2 - 10) a.loc.y = height + a.size/2 + 10;
-    if (a.loc.y > height + a.size/2 + 10) a.loc.y = - a.size/2 - 10;
-    if (a.loc.x < - a.size/2 - 10) a.loc.x = width + a.size/2 + 10;
-    if (a.loc.x > width + a.size/2 + 10) a.loc.x = - a.size/2 - 10;
-      if (a.lives == 0) myAsteroids.remove(r);
-      r++;
-    }
+
   rectMode(CENTER);
   noStroke();
   fill(brown);
@@ -61,12 +48,20 @@ void game() {
   else fill(255);
   text("teleport", width*2/3, 35);
 
+  //ufo
+  if (!ufoAlive) ufoTimer++;
+  if (ufoTimer > ufoThreshold) {
+    myObjects.add(new Ufo());
+    ufoTimer = 0;
+    ufoAlive = true;
+  }
+
   //lose game
   if (myShip.lives == 0) mode = GAMEOVER;
 
 
   //win game
-  if (myAsteroids.size() == 0) mode = GAMEOVER;
+  if (numAsteroids == 0) mode = GAMEOVER;
 }
 
 void gameClicks() {

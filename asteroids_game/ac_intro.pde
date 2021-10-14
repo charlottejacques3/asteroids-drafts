@@ -1,5 +1,4 @@
 void intro() {
-  //background(0);
   //gif
   image(gif[frame], width/2, height/2, width, height);
   frame++;

@@ -1,6 +1,12 @@
 void gameover() {
   background(0);
-    fill(0, 255, 0);
+  fill(0, 255, 0);
+  //get rid of remaining objects
+  int i = 0;
+  while (i < myObjects.size()) {
+    myObjects.remove(i);
+    i++;
+  }
 
   //if lost
   if (myShip.lives == 0) {
@@ -8,7 +14,7 @@ void gameover() {
     text("GAME", 445, height/2-100);
     textFont(rightItalic);
     text("OVER", 755, height/2-100);
-  } else {
+  } else { //if won
     textFont(leftItalic);
     text("YOU", 475, height/2-100);
     textFont(rightItalic);
@@ -28,4 +34,11 @@ void gameover() {
 void gameoverClicks() {
   mode = INTRO;
   myShip.lives = 3;
+  myObjects.add(myShip);
+  numAsteroids = 3;
+  int i = 0;
+  while (i < numAsteroids) {
+    myObjects.add(new Asteroid());
+    i++;
+  }
 }

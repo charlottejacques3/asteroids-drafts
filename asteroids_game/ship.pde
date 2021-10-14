@@ -1,7 +1,7 @@
-class Ship extends GameObject {
+class Ship extends GameObject { //<>//
 
   PVector direction;
-  int shotTimer, threshold;
+  int shotTimer, shotThreshold, immunTimer, immunThreshold, shieldT;
   color colour;
 
   Ship() {
@@ -10,9 +10,12 @@ class Ship extends GameObject {
     direction = new PVector(0, -0.1);
     lives = 3;
     shotTimer = 0;
-    threshold = 30;
+    shotThreshold = 30;
+    immunTimer = 0;
+    immunThreshold = 240;
     size = 50;
     colour = #FFFFFF;
+    shieldT = 180;
   }
 
   void show() {
@@ -27,11 +30,17 @@ class Ship extends GameObject {
 
   void act() {
     super.act();
+    
+    if (spaceKey && shotTimer > shotThreshold) {
+      myObjects.add(new ShipBullet());
+      shotTimer = 0;
+    }
 
     //limit speed
     if (v.mag() > 8) v.setMag(8);
 
     shotTimer++;
+    immunTimer++;
 
     //keyboard controls
     if (upKey) {
@@ -41,40 +50,53 @@ class Ship extends GameObject {
     if (downKey) {
       v.sub(direction);
     }
+    
+    
+    
     if (!upKey && !downKey) v.mult(0.95); //slow down
     if (leftKey) direction.rotate(-radians(5));
     if (rightKey) direction.rotate(radians(5));
-    //if (!leftKey && !rightKey) direction.rotate(
 
-    if (spaceKey && shotTimer > threshold) {
-      myObjects.add(new Bullet());
-      shotTimer = 0;
-    }
+    
 
-    //interactions with asteroids
     int i = 0;
-    while (i < myAsteroids.size()) {
-      Asteroid a = myAsteroids.get(i);
-      if (a.lives != 0) {
+    while (i < myObjects.size()) {
+      GameObject o = myObjects.get(i);
+      
+      //interactions with asteroids
+      if (o.lives != 0 && o instanceof Asteroid) {
 
         //make it lose lives
-        if (dist(loc.x, loc.y, a.loc.x, a.loc.y) < (size+a.size)/2 && cooldown >= 240) {
-          lives--; //<>//
+        if (dist(loc.x, loc.y, o.loc.x, o.loc.y) < (size+o.size)/2 && immunTimer >= immunThreshold) {
+          lives--;
           loc = new PVector(width/2, height/2);
           v = new PVector(0, 0);
           direction = new PVector(0, -0.1);
-          cooldown--;
-          colour = #00FF00;
+          immunTimer = 0;
         }
 
         //teleport
         if (tKey && teleTimer >= 350) {
           loc = new PVector(random(size/2, width-size/2), random(size/2 + 50, height-size/2));
           teleTimer = 0;
-          while (dist(loc.x, loc.y, a.loc.x, a.loc.y) < (size + a.size)/2 + 75) {
+          while (dist(loc.x, loc.y, o.loc.x, o.loc.y) < (size + o.size)/2 + 75) {
             loc.x = random(size/2, width-size/2);
             loc.y = random(size/2, height-size/2);
           }
+        }
+      }
+      
+      //make it die when hit by ufo bullets
+      if (o instanceof UfoBullet) {
+        if (dist (loc.x, loc.y, o.loc.x, o.loc.y) <= (size+o.size)/2 && immunTimer >= immunThreshold) {
+          o.lives = 0;
+          lives--;
+          loc = new PVector(width/2, height/2);
+          v = new PVector(0, 0);
+          direction = new PVector(0, -0.1);
+          immunTimer = 0;
+          shieldT = immunThreshold;
+          println("hit by ufo bullet");
         }
       }
       i++;
@@ -83,11 +105,13 @@ class Ship extends GameObject {
     //increase teletimer
     if (teleTimer < 350) teleTimer++;
 
-    //reset cooldown
-    if (cooldown < 240) cooldown--;
-    if (cooldown <= 0) {
-      cooldown = 240;
-      colour = #FFFFFF;
+    //add shield when immune
+    if (immunTimer < immunThreshold) {
+      tint(255, shieldT);
+      image(shield, loc.x, loc.y, size*3/2, size*3/2);
+      shieldT--;
+      noTint();
+      println("shield!!");
     }
   }
 }
