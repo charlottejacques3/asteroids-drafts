@@ -22,7 +22,6 @@ void gameover() {
   }
 
   //try again
-  println();
   textFont(leftItalic);
   textSize(30);
   text("click to ", 520, height/2+100);

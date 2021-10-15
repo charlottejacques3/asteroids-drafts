@@ -7,7 +7,7 @@ final int INTRO = 0;
 final int GAME = 1;
 final int PAUSE = 2;
 final int GAMEOVER = 3;
-int mode = GAME;
+int mode = INTRO;
 
 //colour scheme
 color green = #686E27;
@@ -20,14 +20,14 @@ color brown = #3B2B22;
 PImage monster, alien, shield;
 
 //game variables
-int numAsteroids = 3;
+int numAsteroids = 4;
 
 //teleporting variables
 int teleTimer = 350;
 
 //ufo variables
 int ufoTimer = 0;
-int ufoThreshold = 500; //int(random(500, 2000)) - also set this after the ufo is killed so it is randomized every time
+int ufoThreshold = int(random(400, 2000));
 boolean ufoAlive = false;
 
 //font variables

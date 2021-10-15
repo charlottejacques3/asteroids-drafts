@@ -41,7 +41,7 @@ class Asteroid extends GameObject {
             numAsteroids--; //remove 1
             int n = 0;
             while (n < 15) {
-              myObjects.add(new Particle(loc.x, loc.y));
+              myObjects.add(new Particle(loc.x, loc.y, #8E6349));
               n++;
             }
           }

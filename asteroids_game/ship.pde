@@ -73,13 +73,14 @@ class Ship extends GameObject { //<>//
           v = new PVector(0, 0);
           direction = new PVector(0, -0.1);
           immunTimer = 0;
+          shieldT = immunThreshold;
         }
 
         //teleport
         if (tKey && teleTimer >= 350) {
           loc = new PVector(random(size/2, width-size/2), random(size/2 + 50, height-size/2));
           teleTimer = 0;
-          while (dist(loc.x, loc.y, o.loc.x, o.loc.y) < (size + o.size)/2 + 75) {
+          while (dist(loc.x, loc.y, o.loc.x, o.loc.y) < (size + o.size)/2 + 200) {
             loc.x = random(size/2, width-size/2);
             loc.y = random(size/2, height-size/2);
           }
@@ -96,7 +97,6 @@ class Ship extends GameObject { //<>//
           direction = new PVector(0, -0.1);
           immunTimer = 0;
           shieldT = immunThreshold;
-          println("hit by ufo bullet");
         }
       }
       i++;
@@ -111,7 +111,6 @@ class Ship extends GameObject { //<>//
       image(shield, loc.x, loc.y, size*3/2, size*3/2);
       shieldT--;
       noTint();
-      println("shield!!");
     }
   }
 }

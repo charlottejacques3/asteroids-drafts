@@ -49,7 +49,9 @@ void game() {
   text("teleport", width*2/3, 35);
 
   //ufo
-  if (!ufoAlive) ufoTimer++;
+  if (!ufoAlive) {
+    ufoTimer++;
+  }
   if (ufoTimer > ufoThreshold) {
     myObjects.add(new Ufo());
     ufoTimer = 0;
@@ -58,7 +60,6 @@ void game() {
 
   //lose game
   if (myShip.lives == 0) mode = GAMEOVER;
-
 
   //win game
   if (numAsteroids == 0) mode = GAMEOVER;
